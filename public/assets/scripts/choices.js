@@ -1,4 +1,4 @@
-/*! choices.js v10.2.0 | © 2022 Josh Johnson | https://github.com/jshjohnson/Choices#readme */
+/*! choices.js v10.2.0 | © 2023 Josh Johnson | https://github.com/jshjohnson/Choices#readme */
 (function webpackUniversalModuleDefinition(root, factory) {
 	if(typeof exports === 'object' && typeof module === 'object')
 		module.exports = factory();
@@ -805,7 +805,9 @@ var Choices = /** @class */function () {
       }
       choiceListFragment = this._createGroupsFragment(activeGroups, activeChoices, choiceListFragment);
     } else if (activeChoices.length >= 1) {
-      choiceListFragment = this._createChoicesFragment(activeChoices, choiceListFragment);
+      choiceListFragment = this._createChoicesFragment(activeChoices.filter(function (activeChoice) {
+        return !activeChoice.placeholder;
+      }), choiceListFragment);
     }
     // If we have choices to show
     if (choiceListFragment.childNodes && choiceListFragment.childNodes.length > 0) {
@@ -4168,7 +4170,7 @@ function getMergeFunction(key, options) {
 function getEnumerableOwnPropertySymbols(target) {
 	return Object.getOwnPropertySymbols
 		? Object.getOwnPropertySymbols(target).filter(function(symbol) {
-			return target.propertyIsEnumerable(symbol)
+			return Object.propertyIsEnumerable.call(target, symbol)
 		})
 		: []
 }
@@ -6815,15 +6817,6 @@ function applyMiddleware() {
     };
   };
 }
-
-/*
- * This is a dummy function to check if the function name has been altered by minification.
- * If the function has been minified and NODE_ENV !== 'production', warn the user.
- */
-
-function isCrushed() {}
-
-if (false) {}
 
 
 

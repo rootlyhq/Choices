@@ -820,7 +820,7 @@ class Choices implements Choices {
       );
     } else if (activeChoices.length >= 1) {
       choiceListFragment = this._createChoicesFragment(
-        activeChoices,
+        activeChoices.filter((activeChoice) => !activeChoice.placeholder),
         choiceListFragment,
       );
     }
