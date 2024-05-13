@@ -1440,9 +1440,14 @@ class Choices implements Choices {
     const hasFocusedInput = this.input.isFocussed;
     const hasActiveDropdown = this.dropdown.isActive;
     const hasItems = this.itemList.hasChildren();
-    const keyString = String.fromCharCode(keyCode);
     // eslint-disable-next-line no-control-regex
-    const wasPrintableChar = /[^\x00-\x1F]/.test(keyString);
+    const wasPrintableChar = 
+        (keyCode > 47 && keyCode < 58)   || // number keys
+        keyCode == 32   || // spacebar
+        (keyCode > 64 && keyCode < 91)   || // letter keys
+        (keyCode > 95 && keyCode < 112)  || // numpad keys
+        (keyCode > 185 && keyCode < 193) || // ;=,-./` (in order)
+        (keyCode > 218 && keyCode < 223);   // [\]' (in order)
 
     const {
       BACK_KEY,

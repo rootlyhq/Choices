@@ -1267,7 +1267,13 @@ var Choices = /** @class */function () {
     var hasItems = this.itemList.hasChildren();
     var keyString = String.fromCharCode(keyCode);
     // eslint-disable-next-line no-control-regex
-    var wasPrintableChar = /[^\x00-\x1F]/.test(keyString);
+    var wasPrintableChar = 
+        (keyCode > 47 && keyCode < 58)   || // number keys
+        keyCode == 32   || // spacebar & return key(s) (if you want to allow carriage returns)
+        (keyCode > 64 && keyCode < 91)   || // letter keys
+        (keyCode > 95 && keyCode < 112)  || // numpad keys
+        (keyCode > 185 && keyCode < 193) || // ;=,-./` (in order)
+        (keyCode > 218 && keyCode < 223);   // [\]' (in order)
     var BACK_KEY = constants_1.KEY_CODES.BACK_KEY,
       DELETE_KEY = constants_1.KEY_CODES.DELETE_KEY,
       ENTER_KEY = constants_1.KEY_CODES.ENTER_KEY,
