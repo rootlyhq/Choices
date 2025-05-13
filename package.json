@@ -112,6 +112,9 @@
     "fuse.js": "^6.6.2",
     "redux": "^4.2.0"
   },
+  "overrides": {
+    "nan": "^2.17.0"
+  },
   "npmName": "choices.js",
   "npmFileMap": [
     {
