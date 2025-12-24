@@ -1670,7 +1670,10 @@ var Choices = /** @class */function () {
       placeholder = _f === void 0 ? false : _f,
       _g = _a.keyCode,
       keyCode = _g === void 0 ? -1 : _g;
-    var passedValue = typeof value === 'string' ? value.trim() : value;
+    var passedValue = value;
+    if (typeof value === 'string' && this.config.shouldTrimItemValues) {
+      passedValue = value.trim();
+    }
     var items = this._store.items;
     var passedLabel = label || passedValue;
     var passedOptionId = choiceId || -1;
@@ -2925,6 +2928,7 @@ exports.DEFAULT_CONFIG = {
   valueComparer: function (value1, value2) {
     return value1 === value2;
   },
+  shouldTrimItemValues: true,
   fuseOptions: {
     includeScore: true
   },
