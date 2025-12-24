@@ -1441,7 +1441,7 @@ class Choices implements Choices {
     const hasActiveDropdown = this.dropdown.isActive;
     const hasItems = this.itemList.hasChildren();
     // eslint-disable-next-line no-control-regex
-    const wasPrintableChar =
+    const wasPrintableChar = 
         (keyCode > 47 && keyCode < 58)   || // number keys
         keyCode == 32   || // spacebar
         (keyCode > 64 && keyCode < 91)   || // letter keys
