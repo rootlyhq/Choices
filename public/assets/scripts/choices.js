@@ -1,4 +1,4 @@
-/*! choices.js v10.2.0 | © 2023 Josh Johnson | https://github.com/jshjohnson/Choices#readme */
+/*! choices.js v10.2.0 | © 2026 Josh Johnson | https://github.com/jshjohnson/Choices#readme */
 (function webpackUniversalModuleDefinition(root, factory) {
 	if(typeof exports === 'object' && typeof module === 'object')
 		module.exports = factory();
@@ -1265,15 +1265,18 @@ var Choices = /** @class */function () {
     var hasFocusedInput = this.input.isFocussed;
     var hasActiveDropdown = this.dropdown.isActive;
     var hasItems = this.itemList.hasChildren();
-    var keyString = String.fromCharCode(keyCode);
     // eslint-disable-next-line no-control-regex
-    var wasPrintableChar = 
-        (keyCode > 47 && keyCode < 58)   || // number keys
-        keyCode == 32   || // spacebar & return key(s) (if you want to allow carriage returns)
-        (keyCode > 64 && keyCode < 91)   || // letter keys
-        (keyCode > 95 && keyCode < 112)  || // numpad keys
-        (keyCode > 185 && keyCode < 193) || // ;=,-./` (in order)
-        (keyCode > 218 && keyCode < 223);   // [\]' (in order)
+    var wasPrintableChar = keyCode > 47 && keyCode < 58 ||
+    // number keys
+    keyCode == 32 ||
+    // spacebar
+    keyCode > 64 && keyCode < 91 ||
+    // letter keys
+    keyCode > 95 && keyCode < 112 ||
+    // numpad keys
+    keyCode > 185 && keyCode < 193 ||
+    // ;=,-./` (in order)
+    keyCode > 218 && keyCode < 223; // [\]' (in order)
     var BACK_KEY = constants_1.KEY_CODES.BACK_KEY,
       DELETE_KEY = constants_1.KEY_CODES.DELETE_KEY,
       ENTER_KEY = constants_1.KEY_CODES.ENTER_KEY,
@@ -1667,7 +1670,10 @@ var Choices = /** @class */function () {
       placeholder = _f === void 0 ? false : _f,
       _g = _a.keyCode,
       keyCode = _g === void 0 ? -1 : _g;
-    var passedValue = typeof value === 'string' ? value.trim() : value;
+    var passedValue = value;
+    if (typeof value === 'string' && this.config.shouldTrimItemValues) {
+      passedValue = value.trim();
+    }
     var items = this._store.items;
     var passedLabel = label || passedValue;
     var passedOptionId = choiceId || -1;
@@ -2922,6 +2928,7 @@ exports.DEFAULT_CONFIG = {
   valueComparer: function (value1, value2) {
     return value1 === value2;
   },
+  shouldTrimItemValues: true,
   fuseOptions: {
     includeScore: true
   },
@@ -4176,7 +4183,7 @@ function getMergeFunction(key, options) {
 function getEnumerableOwnPropertySymbols(target) {
 	return Object.getOwnPropertySymbols
 		? Object.getOwnPropertySymbols(target).filter(function(symbol) {
-			return Object.propertyIsEnumerable.call(target, symbol)
+			return target.propertyIsEnumerable(symbol)
 		})
 		: []
 }
@@ -6823,6 +6830,15 @@ function applyMiddleware() {
     };
   };
 }
+
+/*
+ * This is a dummy function to check if the function name has been altered by minification.
+ * If the function has been minified and NODE_ENV !== 'production', warn the user.
+ */
+
+function isCrushed() {}
+
+if (false) {}
 
 
 
