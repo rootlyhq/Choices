@@ -1957,7 +1957,10 @@ class Choices implements Choices {
     placeholder?: boolean;
     keyCode?: number;
   }): void {
-    let passedValue = typeof value === 'string' ? value.trim() : value;
+    let passedValue = value;
+    if (typeof value === 'string' && this.config.shouldTrimItemValues) {
+      passedValue = value.trim();
+    }
 
     const { items } = this._store;
     const passedLabel = label || passedValue;
